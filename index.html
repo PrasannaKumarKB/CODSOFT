@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Times New Roman', Times, serif;
+        outline: none;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-image: url("calculator.avif");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .calculator {
+        background-color: rgba(0, 0, 0, 0.8); 
+        padding: 15px;
+        border-radius: 30px;
+        box-shadow: 5px;
+        display: grid;
+        grid-template-columns: repeat(4, 68px);
+    }
+
+    input {
+        grid-column: span 4;
+        height: 70px;
+        width: 260px;
+        background-color: white;
+        box-shadow: 5px;
+        border: none;
+        border-radius: 30px;
+        color: grey;
+        font-size: 50px;
+        text-align: end;
+        margin: auto;
+        margin-top: 40px;
+        margin-bottom: 30px;
+        padding: 20px;
+    }
+
+    button {
+        height: 48px;
+        width: 48px;
+        background-color: white;
+        border: none;
+        border-radius: 50%;
+        margin: 8px;
+        font-size: 16px;
+        transition: box-shadow 0.6s black;
+    }
+    button:hover, button.clicked {
+        box-shadow: -5px 5px 12px white, 5px 5px 12px black;
+    }
+
+    .equal {
+        width: 115px;
+        border-radius: 40px;
+        background-color: white;
+        box-shadow: -5px -5px 12px white, 5px 5px 12px black;
+    }
+</style>
+
+    <title>Calculator</title>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <input type="text " placeholder="0" id="output-screen">
+            <button onclick="clearScreen()">CL</button>
+
+            <button onclick="del()">DEL</button>
+            <button onclick="display('%')" class="button">%</button>
+            <button onclick="display('/')" class="button">/</button>
+            <button onclick="display('7')" class="button">7</button>
+            <button onclick="display('8')" class="button">8</button>
+            <button onclick="display('9')" class="button">9</button>
+            <button onclick="display('*')" class="button">*</button>
+            <button onclick="display('4')" class="button">4</button>
+            <button onclick="display('5')" class="button">5</button>
+            <button onclick="display('6')" class="button">6</button>
+            <button onclick="display('-')" class="button">-</button>
+            <button onclick="display('1')" class="button">1</button>
+            <button onclick="display('2')" class="button">2</button>
+            <button onclick="display('3')" class="button">3</button>
+            <button onclick="display('+')" class="button">+</button>
+            <button onclick="display('.')" class="button">.</button>
+            <button onclick="display('0')" class="button">0</button>
+            <button onclick="calculate()" class="equal">=</button>            
+        </div>
+    </div>
+    <script>
+        let outputScreen = document.getElementById("output-screen");
+        let buttons = document.querySelectorAll(".calc-button");
+
+        function display(num) {
+            outputScreen.value += num;
+        }
+
+        function calculate() {
+            try {
+                outputScreen.value = eval(outputScreen.value);
+            } catch (err) {
+                alert("Invalid");
+            }
+        }
+
+        function clearScreen() {
+            outputScreen.value = "";
+        }
+
+        function del() {
+            outputScreen.value = outputScreen.value.slice(0, -1);
+        }
+
+        buttons.forEach(button => {
+            button.addEventListener("click", function() {
+                this.classList.add("clicked");
+                setTimeout(() => {
+                    this.classList.remove("clicked");
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
